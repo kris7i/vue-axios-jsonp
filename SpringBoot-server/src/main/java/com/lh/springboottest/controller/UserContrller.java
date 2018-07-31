@@ -1,5 +1,7 @@
 package com.lh.springboottest.controller;
 
+import com.lh.springboottest.model.ResponseCode;
+import com.lh.springboottest.model.ReturnData;
 import com.lh.springboottest.model.User;
 import com.lh.springboottest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @program: springboottest
@@ -33,8 +37,16 @@ public class UserContrller {
 
     @RequestMapping(value = "/findByName")
     @ResponseBody
-    public List<User> findByName(String name){
-        return userService.findByName(name);
+    public ReturnData findByName(String name){
+        try {
+            Map<String,Object> map=new HashMap<>();
+            List<User> list=userService.findByName(name);
+            map.put("userlist",list);
+            return new ReturnData(ResponseCode.OPERATION_SUCCESS.getStatus(),ResponseCode.OPERATION_SUCCESS.getMsg(),map);
+        }catch (Exception e){
+            return new ReturnData(ResponseCode.OPERATION_ERROR.getStatus(),ResponseCode.OPERATION_ERROR.getMsg(),null);
+        }
+
     }
 
     @RequestMapping(value = "/list")

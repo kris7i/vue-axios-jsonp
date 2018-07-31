@@ -2,7 +2,7 @@
 import Vue from 'vue'
 import ToList from './ToList'
 import router from './router'
-import axios from 'axios';
+import axios from './axios';
 
 
 Vue.prototype.$http = axios

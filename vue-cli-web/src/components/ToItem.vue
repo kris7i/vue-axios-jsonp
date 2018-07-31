@@ -11,24 +11,16 @@ import qs from 'qs';
 export default {
   props:['content','index'],
   methods:{
-    // handdelete(){
-    //   this.$http.get('/ajaxurl/user/list')
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-    // },
-    
     findbyname(){
-      var data = qs.stringify({
-      name: "admin",
-      });
-      this.$http.post('/ajaxurl/user/findByName',data)
-      .then(function(response){
-        console.log(response)
-        console.log("aaaa")
+      var data={
+        name:'admin'
+      }
+      this.$http.ajax('/user/findByName',data).then(function (res) {
+        //成功之后处理逻辑
+        console.log(res)
+      },function (res) {
+        //失败之后处理逻辑
+        console.log("error:"+res)
       })
     }
   }
